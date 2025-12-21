@@ -6,7 +6,7 @@ from datetime import datetime
 
 st.set_page_config(page_title="Temperature Monitoring", layout="wide")
 
-st.title("🌍 Анализ температур и мониторинг климата")
+st.title("Анализ температур и мониторинг климата")
 
 uploaded_file = st.file_uploader("Загрузите temperature_data.csv", type="csv")
 
@@ -26,10 +26,10 @@ if uploaded_file:
             (city_df.temperature < city_df["mean"] - 2 * city_df["std"])
     )
 
-    st.subheader("📊 Описательная статистика")
+    st.subheader("Описательная статистика")
     st.dataframe(season_stats)
 
-    st.subheader("📈 Временной ряд температуры")
+    st.subheader("Временной ряд температуры")
     fig = px.line(city_df, x="timestamp", y="temperature", title=city)
     fig.add_scatter(
         x=city_df[city_df.is_anomaly]["timestamp"],
@@ -39,11 +39,11 @@ if uploaded_file:
     )
     st.plotly_chart(fig, use_container_width=True)
 
-    st.subheader("🌦 Сезонные профили")
+    st.subheader("Сезонные профили")
     fig2 = px.bar(season_stats, x="season", y="mean", error_y="std")
     st.plotly_chart(fig2, use_container_width=True)
 
-    st.subheader("🌡 Текущая температура (OpenWeatherMap)")
+    st.subheader("Текущая температура (OpenWeatherMap)")
     api_key = st.text_input("Введите API Key", type="password")
 
     if api_key:
